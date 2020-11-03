@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -9,8 +10,16 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Home Page'),
+      ),
       body: Center(
-        child: Text('Hello, home'),
+        child: MaterialButton(
+          onPressed: () async {
+            FirebaseAuth.instance.signOut();
+          },
+          child: Text('Sign Out'),
+        ),
       ),
     );
   }
