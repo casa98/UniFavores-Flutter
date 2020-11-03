@@ -1,4 +1,6 @@
 import 'package:auth/screens/home_page.dart';
+import 'package:auth/screens/login_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -33,7 +35,24 @@ class LandingPage extends StatelessWidget {
         }
         if (snapshot.connectionState == ConnectionState.done) {
           // Successfully connected to our app
-          return HomePage();
+          return StreamBuilder(
+              // Something like LiveData? I think so
+              stream: FirebaseAuth.instance.authStateChanges(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.active) {
+                  User user = snapshot.data;
+                  if (user == null) {
+                    return LoginPage();
+                  } else {
+                    return HomePage();
+                  }
+                }
+                return Scaffold(
+                  body: Center(
+                    child: Text('Connectiong'),
+                  ),
+                );
+              });
         }
         // Still connecting (loaidng)
         return Center(
