@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -9,9 +7,24 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  String _email;
+  String _password;
+
   Future<void> _createUser() async {
     try {
-      await FirebaseAuth.instance.signInAnonymously();
+      await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: _email, password: _password);
+    } on FirebaseAuthException catch (e) {
+      print("Firebase error: $e");
+    } catch (e) {
+      print("Flutter error: $e");
+    }
+  }
+
+  Future<void> _login() async {
+    try {
+      await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: _email, password: _password);
     } on FirebaseAuthException catch (e) {
       print("Firebase error: $e");
     } catch (e) {
@@ -22,10 +35,45 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: MaterialButton(
-          onPressed: _createUser,
-          child: Text('Sign In Anonymously'),
+      appBar: AppBar(
+        title: Text('Authentication'),
+        centerTitle: true,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextField(
+              onChanged: (value) {
+                _email = value;
+              },
+              decoration: InputDecoration(
+                hintText: 'Enter email',
+              ),
+            ),
+            TextField(
+              onChanged: (value) {
+                _password = value;
+              },
+              decoration: InputDecoration(
+                hintText: 'Enter password',
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                MaterialButton(
+                  child: Text('Login'),
+                  onPressed: _login,
+                ),
+                MaterialButton(
+                  child: Text('Create new account'),
+                  onPressed: _createUser,
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
