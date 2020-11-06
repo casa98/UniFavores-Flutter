@@ -1,5 +1,4 @@
 import 'package:auth/screens/auth/authenticate.dart';
-import 'package:auth/screens/auth/login_page.dart';
 import 'package:auth/screens/drawer_screens/home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -29,8 +28,7 @@ class Wrapper extends StatelessWidget {
                 if (snapshot.connectionState == ConnectionState.active) {
                   User user = snapshot.data;
                   if (user == null) {
-                    //TODO Finish setting up Authenticate() and call it instead
-                    return LoginPage();
+                    return Authenticate();
                   } else {
                     return HomePage('Unassigned Favors');
                   }
