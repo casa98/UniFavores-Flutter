@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 
-class Statistics extends StatelessWidget {
+class IncompleteFavors extends StatelessWidget {
+  final String _title;
+  IncompleteFavors(this._title);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Statistics'),
+        title: Text(_title),
       ),
       body: Center(
-        child: Text('Statistics'),
+        child: Text('Incomplete Favors'),
       ),
     );
   }

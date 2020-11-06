@@ -17,48 +17,16 @@ class AppDrawer extends StatelessWidget {
             },
             leading: Icon(Icons.home),
           ),
-          ListTile(
-            title: Text('Profile'),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.pushNamed(context, '/profile');
-            },
-            leading: Icon(Icons.person),
-          ),
+          _createDrawerItem(context, 'Profile', '/profile', Icons.person),
           Divider(),
-          ListTile(
-            title: Text('My Favors'),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.pushNamed(context, '/myFavors');
-            },
-            leading: Icon(Icons.grading),
-          ),
-          ListTile(
-            title: Text('Incomplete Favors'),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.pushNamed(context, '/incompleteFavors');
-            },
-            leading: Icon(Icons.list),
-          ),
-          ListTile(
-            title: Text('Active Chats'),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.pushNamed(context, '/activeChats');
-            },
-            leading: Icon(Icons.chat_outlined),
-          ),
+          _createDrawerItem(context, 'My Favors', '/myFavors', Icons.grading),
+          _createDrawerItem(
+              context, 'Incomplete Favors', '/incompleteFavors', Icons.list),
+          _createDrawerItem(
+              context, 'Active Chats', '/activeChats', Icons.chat_outlined),
           Divider(),
-          ListTile(
-            title: Text('Statistics'),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.pushNamed(context, '/statistics');
-            },
-            leading: Icon(Icons.bar_chart),
-          ),
+          _createDrawerItem(
+              context, 'Statistics', '/statistics', Icons.bar_chart),
         ],
       ),
     );
@@ -82,10 +50,13 @@ Widget _createHeader() {
 }
 
 Widget _createDrawerItem(
-    {IconData icon, String text, GestureTapCallback onTap}) {
+    BuildContext context, String title, String route, IconData icon) {
   return ListTile(
-    title: Text(text),
+    title: Text(title),
+    onTap: () {
+      Navigator.pop(context);
+      Navigator.pushNamed(context, route);
+    },
     leading: Icon(icon),
-    onTap: onTap,
   );
 }

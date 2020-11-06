@@ -1,10 +1,10 @@
-import 'package:auth/screens/active_chats.dart';
-import 'package:auth/screens/home_page.dart';
-import 'package:auth/screens/incomplete_favors.dart';
-import 'package:auth/screens/login_page.dart';
-import 'package:auth/screens/my_favors.dart';
-import 'package:auth/screens/profile.dart';
-import 'package:auth/screens/statistics.dart';
+import 'package:auth/screens/drawer_screens/active_chats.dart';
+import 'package:auth/screens/drawer_screens/home_page.dart';
+import 'package:auth/screens/drawer_screens/incomplete_favors.dart';
+import 'package:auth/screens/drawer_screens/login_page.dart';
+import 'package:auth/screens/drawer_screens/my_favors.dart';
+import 'package:auth/screens/drawer_screens/profile.dart';
+import 'package:auth/screens/drawer_screens/statistics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -21,12 +21,12 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => LandingPage(),
-        '/home': (context) => HomePage(),
-        '/profile': (context) => Profile(),
-        '/myFavors': (context) => MyFavors(),
-        '/incompleteFavors': (context) => IncompleteFavors(),
-        '/activeChats': (context) => ActiveChats(),
-        '/statistics': (context) => Statistics(),
+        '/home': (context) => HomePage('Unassigned Favors'),
+        '/profile': (context) => Profile('Profile'),
+        '/myFavors': (context) => MyFavors('My Favors'),
+        '/incompleteFavors': (context) => IncompleteFavors('Incomplete Favors'),
+        '/activeChats': (context) => ActiveChats('Active Chats'),
+        '/statistics': (context) => Statistics('Statistics'),
       },
     );
   }
@@ -58,12 +58,12 @@ class LandingPage extends StatelessWidget {
                   if (user == null) {
                     return LoginPage();
                   } else {
-                    return HomePage();
+                    return HomePage('Unassigned Favors');
                   }
                 }
                 return Scaffold(
                   body: Center(
-                    child: Text('Connectiong'),
+                    child: Text('Connecting'),
                   ),
                 );
               });
