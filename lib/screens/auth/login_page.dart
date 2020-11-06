@@ -1,5 +1,5 @@
+import 'package:auth/services/auth.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -9,28 +9,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   String _email;
   String _password;
-
-  Future<void> _createUser() async {
-    try {
-      await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: _email, password: _password);
-    } on FirebaseAuthException catch (e) {
-      print("Firebase error: $e");
-    } catch (e) {
-      print("Flutter error: $e");
-    }
-  }
-
-  Future<void> _login() async {
-    try {
-      await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: _email, password: _password);
-    } on FirebaseAuthException catch (e) {
-      print("Firebase error: $e");
-    } catch (e) {
-      print("Flutter error: $e");
-    }
-  }
+  AuthService _auth = AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -65,11 +44,15 @@ class _LoginPageState extends State<LoginPage> {
               children: [
                 MaterialButton(
                   child: Text('Login'),
-                  onPressed: _login,
+                  onPressed: () {
+                    _auth.signInWithEmailAndPassword(_email, _password);
+                  },
                 ),
                 MaterialButton(
                   child: Text('Create new account'),
-                  onPressed: _createUser,
+                  onPressed: () {
+                    _auth.createUserWithEmailAndPassword(_email, _password);
+                  },
                 ),
               ],
             ),
