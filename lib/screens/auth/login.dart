@@ -24,14 +24,44 @@ class _LoginState extends State<Login> {
           padding: EdgeInsets.all(24.0),
           child: Form(
             key: _formKey,
-            child: Column(
-              children: [
-                buildEmailFormField(),
-                SizedBox(height: 30.0),
-                buildPasswordFormField(),
-                SizedBox(height: 20.0),
-                submitButton(),
-              ],
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(height: 30.0),
+                  Text(
+                    'Sign In',
+                    style: TextStyle(
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  SizedBox(height: 30.0),
+                  buildEmailFormField(),
+                  SizedBox(height: 25.0),
+                  buildPasswordFormField(),
+                  SizedBox(height: 20.0),
+                  submitButton(),
+                  SizedBox(height: 20.0),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text("Don’t have an account? "),
+                      SizedBox(width: 10.0),
+                      GestureDetector(
+                        onTap: () => widget.toggleView(),
+                        child: Text(
+                          "Sign Up",
+                          style: TextStyle(
+                            color: Colors.blue[700],
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -41,6 +71,7 @@ class _LoginState extends State<Login> {
 
   TextFormField buildEmailFormField() {
     return TextFormField(
+      keyboardType: TextInputType.emailAddress,
       onChanged: (value) => _email = value,
       validator: (value) {
         if (value.isNotEmpty) {
