@@ -41,20 +41,23 @@ class _LoginState extends State<Login> {
                   buildPasswordFormField(),
                   SizedBox(height: 20.0),
                   submitButton(),
-                  SizedBox(height: 20.0),
+                  SizedBox(height: 10.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text("Don’t have an account? "),
-                      SizedBox(width: 10.0),
                       GestureDetector(
                         onTap: () => widget.toggleView(),
-                        child: Text(
-                          "Sign Up",
-                          style: TextStyle(
-                            color: Colors.blue[700],
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.bold,
+                        child: Container(
+                          color: Colors.grey[50],
+                          padding: EdgeInsets.all(16.0),
+                          child: Text(
+                            "Sign Up",
+                            style: TextStyle(
+                              color: Colors.blue[700],
+                              fontSize: 15.0,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),

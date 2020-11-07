@@ -52,15 +52,18 @@ class _RegisterState extends State<Register> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text("Already have an account? "),
-                      SizedBox(width: 10.0),
                       GestureDetector(
                         onTap: () => widget.toggleView(),
-                        child: Text(
-                          "Sign In",
-                          style: TextStyle(
-                            color: Colors.blue[700],
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.bold,
+                        child: Container(
+                          color: Colors.grey[50],
+                          padding: EdgeInsets.all(16.0),
+                          child: Text(
+                            "Sign In",
+                            style: TextStyle(
+                              color: Colors.blue[700],
+                              fontSize: 15.0,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),
@@ -151,7 +154,7 @@ class _RegisterState extends State<Register> {
             return 'Please enter a longer password (>5)';
           }
         } else {
-          return 'Please repeat you password';
+          return 'Please repeat your password';
         }
         return null;
       },
@@ -168,7 +171,7 @@ class _RegisterState extends State<Register> {
       onPressed: () {
         if (_formKey.currentState.validate()) {
           if (_password == _confirmPassword) {
-            _auth.createUserWithEmailAndPassword(_email, _password);
+            _auth.createUserWithEmailAndPassword(_name, _email, _password);
           }
         }
       },
