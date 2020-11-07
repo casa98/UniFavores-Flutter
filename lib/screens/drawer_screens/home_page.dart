@@ -12,6 +12,9 @@ class HomePage extends StatelessWidget {
         title: Text(_title),
       ),
       drawer: AppDrawer(),
+      body: Center(
+        child: Text('Home'),
+      ),
     );
   }
 }
