@@ -40,6 +40,13 @@ class _HomePageState extends State<HomePage> {
 void _addFavorModalBottomSheet(context) {
   showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20.0),
+          topRight: Radius.circular(20.0),
+        ),
+      ),
       builder: (BuildContext bd) {
         return AddFavor();
       });

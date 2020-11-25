@@ -1,3 +1,4 @@
+import 'package:auth/services/database.dart';
 import 'package:flutter/material.dart';
 
 class AddFavor extends StatefulWidget {
@@ -16,45 +17,55 @@ class _AddFavorState extends State<AddFavor> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 24.0, vertical: 0.0),
-      child: Form(
-        key: _formKey,
-        child: Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 0.0),
-              child: Text(
-                'Ask for a favor',
-                style: TextStyle(
-                  fontSize: 20.0,
-                  color: Colors.blue[700],
-                  fontWeight: FontWeight.w600,
+    return SingleChildScrollView(
+      padding:
+          EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 24.0, vertical: 0.0),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 0.0),
+                child: Text(
+                  'Ask for a favor',
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    color: Colors.blue[700],
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
-            ),
-            titleFormField(),
-            SizedBox(height: 20.0),
-            descriptionFormField(),
-            SizedBox(height: 20.0),
-            deliveryPlaceFormField(),
-            SizedBox(height: 20.0),
-            RaisedButton(
-              onPressed: () {
-                if (_formKey.currentState.validate()) {
-                  //TODO Save favor in Firestore
-                  Navigator.of(context).pop();
-                }
-              },
-              color: Colors.blue[600],
-              child: Text(
-                'REQUEST FAVOR',
-                style: TextStyle(
-                  color: Colors.white,
+              titleFormField(),
+              SizedBox(height: 20.0),
+              descriptionFormField(),
+              SizedBox(height: 20.0),
+              deliveryPlaceFormField(),
+              SizedBox(height: 20.0),
+              RaisedButton(
+                onPressed: () {
+                  if (_formKey.currentState.validate()) {
+                    DatabaseService()
+                        .saveFavor(_title, _description, _location);
+                    Navigator.of(context).pop();
+                  }
+                },
+                color: Colors.blue[600],
+                child: Container(
+                  padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 16.0),
+                  child: Text(
+                    'REQUEST FAVOR',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ],
+              SizedBox(height: 20.0),
+            ],
+          ),
         ),
       ),
     );
