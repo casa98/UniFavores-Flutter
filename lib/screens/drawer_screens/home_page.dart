@@ -1,4 +1,5 @@
 import 'package:auth/screens/add_favor.dart';
+import 'package:auth/screens/drawer_screens/unassigned_favors.dart';
 import 'package:auth/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +20,7 @@ class _HomePageState extends State<HomePage> {
       ),
       drawer: AppDrawer(),
       body: Center(
-        child: Text('Home'),
+        child: UnassignedFavors(),
       ),
       floatingActionButton: _canRequestFavor()
           ? FloatingActionButton(
