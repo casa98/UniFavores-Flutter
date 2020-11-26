@@ -1,3 +1,4 @@
+import 'package:auth/shared/util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -28,7 +29,7 @@ class DatabaseService {
     return await favorsCollection.doc(key).set({
       //'assignedUser': '',
       //'assignedUsername': '',
-      'creationDate': 'get current time and format it',
+      'creationDate': Util().getCurrentHour(),
       'favorDescription': description,
       'favorLocation': location,
       'favorTitle': title,
