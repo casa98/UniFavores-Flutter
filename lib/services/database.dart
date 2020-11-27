@@ -25,18 +25,25 @@ class DatabaseService {
     String description,
     String location,
   ) async {
-    var key = favorsCollection.doc().id;
-    return await favorsCollection.doc(key).set({
-      //FAVOR_ASSIGNED_USER: '',
-      //FAVOR_ASSIGNED_USERNAME: '',
-      FAVOR_TIMESTAMP: DateTime.now().millisecondsSinceEpoch,
-      FAVOR_DESCRIPTION: description,
-      FAVOR_LOCATION: location,
-      FAVOR_TITLE: title,
-      FAVOR_KEY: key,
-      FAVOR_STATUS: -1, // Unassigned
-      FAVOR_USER: currentUser.uid,
-      FAVOR_USERNAME: '<value_missing>'
+    dynamic username;
+    await userCollection
+        .doc(currentUser.uid)
+        .get()
+        .then<dynamic>((snapshot) async {
+      username = snapshot.data()[USERNAME];
+      var key = favorsCollection.doc().id;
+      return await favorsCollection.doc(key).set({
+        //FAVOR_ASSIGNED_USER: '',
+        //FAVOR_ASSIGNED_USERNAME: '',
+        FAVOR_TIMESTAMP: DateTime.now().millisecondsSinceEpoch,
+        FAVOR_DESCRIPTION: description,
+        FAVOR_LOCATION: location,
+        FAVOR_TITLE: title,
+        FAVOR_KEY: key,
+        FAVOR_STATUS: -1, // Unassigned
+        FAVOR_USER: currentUser.uid,
+        FAVOR_USERNAME: username,
+      });
     });
   }
 }
