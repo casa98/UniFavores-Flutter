@@ -1,3 +1,4 @@
+import 'package:auth/shared/constants.dart';
 import 'package:flutter/material.dart';
 
 class Statistics extends StatelessWidget {
@@ -11,7 +12,7 @@ class Statistics extends StatelessWidget {
         title: Text(_title),
       ),
       body: Center(
-        child: Text('Statistics'),
+        child: Text(STATISTICS),
       ),
     );
   }

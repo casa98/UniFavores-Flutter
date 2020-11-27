@@ -1,3 +1,4 @@
+import 'package:auth/shared/constants.dart';
 import 'package:flutter/material.dart';
 
 class MyFavors extends StatelessWidget {
@@ -11,7 +12,7 @@ class MyFavors extends StatelessWidget {
         title: Text(_title),
       ),
       body: Center(
-        child: Text('My Favors'),
+        child: Text(MY_FAVORS),
       ),
     );
   }

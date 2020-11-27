@@ -1,3 +1,4 @@
+import 'package:auth/shared/constants.dart';
 import 'package:flutter/material.dart';
 
 class ActiveChats extends StatelessWidget {
@@ -11,7 +12,7 @@ class ActiveChats extends StatelessWidget {
         title: Text(_title),
       ),
       body: Center(
-        child: Text('Active Chats'),
+        child: Text(ACTIVE_CHATS),
       ),
     );
   }

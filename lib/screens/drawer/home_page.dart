@@ -1,5 +1,6 @@
 import 'package:auth/screens/add_favor.dart';
 import 'package:auth/screens/drawer/unassigned_favors.dart';
+import 'package:auth/shared/constants.dart';
 import 'package:auth/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 
@@ -25,7 +26,7 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton: _canRequestFavor()
           ? FloatingActionButton(
               onPressed: () => _addFavorModalBottomSheet(context),
-              tooltip: 'Ask for a favor',
+              tooltip: ASK_FOR_A_FAVOR,
               child: Icon(Icons.add),
             )
           : null,

@@ -1,3 +1,4 @@
+import 'package:auth/shared/constants.dart';
 import 'package:flutter/material.dart';
 
 class IncompleteFavors extends StatelessWidget {
@@ -11,7 +12,7 @@ class IncompleteFavors extends StatelessWidget {
         title: Text(_title),
       ),
       body: Center(
-        child: Text('Incomplete Favors'),
+        child: Text(INCOMPLETE_FAVORS),
       ),
     );
   }
