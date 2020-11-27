@@ -1,4 +1,5 @@
 import 'package:auth/services/database.dart';
+import 'package:auth/shared/constants.dart';
 import 'package:flutter/material.dart';
 
 class AddFavor extends StatefulWidget {
@@ -13,8 +14,6 @@ class _AddFavorState extends State<AddFavor> {
   String _description;
   String _location;
 
-  //TODO BottomSheet is overlapped by keyboard
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -28,9 +27,9 @@ class _AddFavorState extends State<AddFavor> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Padding(
-                padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 0.0),
+                padding: EdgeInsets.fromLTRB(0.0, 28.0, 0.0, 24.0),
                 child: Text(
-                  'Ask for a favor',
+                  ASK_FOR_A_FAVOR,
                   style: TextStyle(
                     fontSize: 20.0,
                     color: Colors.blue[700],
@@ -56,7 +55,7 @@ class _AddFavorState extends State<AddFavor> {
                 child: Container(
                   padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 16.0),
                   child: Text(
-                    'REQUEST FAVOR',
+                    REQUEST_FAVOR,
                     style: TextStyle(
                       color: Colors.white,
                     ),
@@ -76,15 +75,15 @@ class _AddFavorState extends State<AddFavor> {
       keyboardType: TextInputType.text,
       onChanged: (value) => _title = value,
       validator: (value) {
-        return value.isEmpty ? 'Please enter a title' : null;
+        return value.isEmpty ? ENTER_TITLE : null;
       },
       decoration: InputDecoration(
         filled: true,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(5),
         ),
-        hintText: 'Title of your favor',
-        helperText: 'Be brief and concise',
+        hintText: TITLE_FAVOR,
+        helperText: TITLE_LABEL,
         floatingLabelBehavior: FloatingLabelBehavior.always,
       ),
       maxLength: 50,
@@ -97,15 +96,15 @@ class _AddFavorState extends State<AddFavor> {
       keyboardType: TextInputType.text,
       onChanged: (value) => _description = value,
       validator: (value) {
-        return value.isEmpty ? 'Please enter a description' : null;
+        return value.isEmpty ? ENTER_DESCRIPTION : null;
       },
       decoration: InputDecoration(
         filled: true,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(5),
         ),
-        hintText: 'Description of your favor',
-        helperText: 'Describe what you need',
+        hintText: DESCRIPTION_FAVOR,
+        helperText: DESCRIPTION_LABEL,
         floatingLabelBehavior: FloatingLabelBehavior.always,
       ),
       maxLength: 300,
@@ -118,15 +117,15 @@ class _AddFavorState extends State<AddFavor> {
       keyboardType: TextInputType.text,
       onChanged: (value) => _location = value,
       validator: (value) {
-        return value.isEmpty ? 'Please enter a location' : null;
+        return value.isEmpty ? ENTER_LOCATION : null;
       },
       decoration: InputDecoration(
         filled: true,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(5),
         ),
-        hintText: 'Delivery place',
-        helperText: 'Where will it be delivered',
+        hintText: LOCATION_FAVOR,
+        helperText: LOCATION_LABEL,
         floatingLabelBehavior: FloatingLabelBehavior.always,
       ),
       maxLength: 50,

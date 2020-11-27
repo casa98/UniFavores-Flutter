@@ -1,3 +1,4 @@
+import 'package:auth/shared/constants.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -11,22 +12,22 @@ class AppDrawer extends StatelessWidget {
         children: <Widget>[
           _createHeader(),
           ListTile(
-            title: Text('Home'),
+            title: Text(HOME),
             onTap: () {
               Navigator.pop(context);
             },
             leading: Icon(Icons.home),
           ),
-          _createDrawerItem(context, 'Profile', '/profile', Icons.person),
+          _createDrawerItem(context, PROFILE, '/profile', Icons.person),
           Divider(),
-          _createDrawerItem(context, 'My Favors', '/myFavors', Icons.grading),
+          _createDrawerItem(context, MY_FAVORS, '/myFavors', Icons.grading),
           _createDrawerItem(
-              context, 'Incomplete Favors', '/incompleteFavors', Icons.list),
+              context, INCOMPLETE_FAVORS, '/incompleteFavors', Icons.list),
           _createDrawerItem(
-              context, 'Active Chats', '/activeChats', Icons.chat_outlined),
+              context, ACTIVE_CHATS, '/activeChats', Icons.chat_outlined),
           Divider(),
           _createDrawerItem(
-              context, 'Statistics', '/statistics', Icons.bar_chart),
+              context, STATISTICS, '/statistics', Icons.bar_chart),
         ],
       ),
     );

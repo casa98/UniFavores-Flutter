@@ -1,22 +1,22 @@
-import 'package:auth/shared/util.dart';
+import 'package:auth/shared/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class DatabaseService {
   // Collection Reference in the Firestore DB
   final CollectionReference userCollection =
-      FirebaseFirestore.instance.collection('user');
+      FirebaseFirestore.instance.collection(USER);
 
   final CollectionReference favorsCollection =
-      FirebaseFirestore.instance.collection('favors');
+      FirebaseFirestore.instance.collection(FAVORS);
 
   final User currentUser = FirebaseAuth.instance.currentUser;
 
   Future crateUserCollection(String uid, String name) async {
     return await userCollection.doc(uid).set({
-      'uid': uid,
-      'username': name,
-      'score': 2,
+      UID: uid,
+      USERNAME: name,
+      SCORE: 2,
     });
   }
 
@@ -27,16 +27,16 @@ class DatabaseService {
   ) async {
     var key = favorsCollection.doc().id;
     return await favorsCollection.doc(key).set({
-      //'assignedUser': '',
-      //'assignedUsername': '',
-      'creationDate': Util().getCurrentHour(),
-      'favorDescription': description,
-      'favorLocation': location,
-      'favorTitle': title,
-      'key': key,
-      'status': -1, // Unassigned
-      'user': currentUser.uid,
-      'username': '<value_missing>'
+      //FAVOR_ASSIGNED_USER: '',
+      //FAVOR_ASSIGNED_USERNAME: '',
+      FAVOR_TIMESTAMP: DateTime.now().millisecondsSinceEpoch,
+      FAVOR_DESCRIPTION: description,
+      FAVOR_LOCATION: location,
+      FAVOR_TITLE: title,
+      FAVOR_KEY: key,
+      FAVOR_STATUS: -1, // Unassigned
+      FAVOR_USER: currentUser.uid,
+      FAVOR_USERNAME: '<value_missing>'
     });
   }
 }

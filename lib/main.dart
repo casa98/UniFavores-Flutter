@@ -1,9 +1,10 @@
-import 'package:auth/screens/drawer_screens/active_chats.dart';
-import 'package:auth/screens/drawer_screens/home_page.dart';
-import 'package:auth/screens/drawer_screens/incomplete_favors.dart';
-import 'package:auth/screens/drawer_screens/my_favors.dart';
-import 'package:auth/screens/drawer_screens/profile.dart';
-import 'package:auth/screens/drawer_screens/statistics.dart';
+import 'package:auth/screens/drawer/active_chats.dart';
+import 'package:auth/screens/drawer/home_page.dart';
+import 'package:auth/screens/drawer/incomplete_favors.dart';
+import 'package:auth/screens/drawer/my_favors.dart';
+import 'package:auth/screens/drawer/profile.dart';
+import 'package:auth/screens/drawer/statistics.dart';
+import 'package:auth/shared/constants.dart';
 import 'package:auth/wrapper.dart';
 import 'package:flutter/material.dart';
 
@@ -18,12 +19,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       routes: {
         '/': (context) => Wrapper(),
-        '/home': (context) => HomePage('Unassigned Favors'),
-        '/profile': (context) => Profile('Profile'),
-        '/myFavors': (context) => MyFavors('My Favors'),
-        '/incompleteFavors': (context) => IncompleteFavors('Incomplete Favors'),
-        '/activeChats': (context) => ActiveChats('Active Chats'),
-        '/statistics': (context) => Statistics('Statistics'),
+        '/home': (context) => HomePage(UNASSIGNED_FAVORS),
+        '/profile': (context) => Profile(PROFILE),
+        '/myFavors': (context) => MyFavors(MY_FAVORS),
+        '/incompleteFavors': (context) => IncompleteFavors(INCOMPLETE_FAVORS),
+        '/activeChats': (context) => ActiveChats(ACTIVE_CHATS),
+        '/statistics': (context) => Statistics(STATISTICS),
       },
     );
   }
