@@ -42,3 +42,11 @@ const String MY_FAVORS = 'My Favors';
 const String INCOMPLETE_FAVORS = 'Incomplete Favors';
 const String ACTIVE_CHATS = 'Active Chats';
 const String STATISTICS = 'Statistics';
+
+const String FAVOR_DETAILS = 'Favor Details';
+const String REQUESTED_BY = 'Favor request by:';
+
+const String DETAILS_TITLE = 'Title';
+const String DETAILS_DESCRIPTION = 'Description';
+const String DETAILS_DELIVERY_PLACE = 'Delivery place';
+const String DO_THIS_FAVOR = 'DO THIS FAVOR';

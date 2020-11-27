@@ -43,7 +43,7 @@ class _AddFavorState extends State<AddFavor> {
               SizedBox(height: 20.0),
               deliveryPlaceFormField(),
               SizedBox(height: 20.0),
-              RaisedButton(
+              ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState.validate()) {
                     DatabaseService()
@@ -51,15 +51,9 @@ class _AddFavorState extends State<AddFavor> {
                     Navigator.of(context).pop();
                   }
                 },
-                color: Colors.blue[600],
                 child: Container(
                   padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 16.0),
-                  child: Text(
-                    REQUEST_FAVOR,
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
+                  child: Text(REQUEST_FAVOR),
                 ),
               ),
               SizedBox(height: 20.0),
