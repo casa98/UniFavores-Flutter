@@ -4,6 +4,7 @@ import 'package:auth/screens/drawer/incomplete_favors.dart';
 import 'package:auth/screens/drawer/my_favors.dart';
 import 'package:auth/screens/drawer/profile.dart';
 import 'package:auth/screens/drawer/statistics.dart';
+import 'package:auth/screens/favor_detail.dart';
 import 'package:auth/shared/constants.dart';
 import 'package:auth/wrapper.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
         '/incompleteFavors': (context) => IncompleteFavors(INCOMPLETE_FAVORS),
         '/activeChats': (context) => ActiveChats(ACTIVE_CHATS),
         '/statistics': (context) => Statistics(STATISTICS),
+        '/favorDetails': (context) => FavorDetail(FAVOR_DETAILS),
       },
     );
   }

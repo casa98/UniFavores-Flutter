@@ -46,4 +46,19 @@ class DatabaseService {
       });
     });
   }
+
+  Future markFavorAsAssigned(String favorId) async {
+    dynamic username;
+    await userCollection
+        .doc(currentUser.uid)
+        .get()
+        .then<dynamic>((snapshot) async {
+      username = snapshot.data()[USERNAME];
+      return await favorsCollection.doc(favorId).update({
+        FAVOR_STATUS: 1,
+        FAVOR_ASSIGNED_USER: currentUser.uid,
+        FAVOR_ASSIGNED_USERNAME: username,
+      });
+    });
+  }
 }
