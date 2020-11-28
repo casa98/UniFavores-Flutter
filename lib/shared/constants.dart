@@ -8,6 +8,8 @@ const String FAVORS = 'favors';
 const String UID = 'uid';
 const String USERNAME = 'username';
 const String SCORE = 'score';
+const String CHANGE_PHOTO = 'CHANGE PHOTO';
+const String SIGN_OUT = 'SIGN OUT';
 
 /* FAVORS INFO */
 const String FAVOR_TITLE = 'favorTitle';
