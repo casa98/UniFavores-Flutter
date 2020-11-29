@@ -9,6 +9,7 @@ const String UID = 'uid';
 const String USERNAME = 'username';
 const String IMAGE = 'image';
 const String SCORE = 'score';
+const String EMAIL = 'email';
 const String CHANGE_PHOTO = 'CHANGE PHOTO';
 const String SIGN_OUT = 'SIGN OUT';
 
