@@ -12,8 +12,9 @@ class DatabaseService {
 
   final User currentUser = FirebaseAuth.instance.currentUser;
 
-  Future crateUserCollection(String uid, String name) async {
+  Future createUserCollection(String uid, String name) async {
     return await userCollection.doc(uid).set({
+      IMAGE: '',
       UID: uid,
       USERNAME: name,
       SCORE: 2,
