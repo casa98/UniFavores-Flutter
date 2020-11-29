@@ -20,9 +20,9 @@ class AppDrawer extends StatelessWidget {
           ),
           _createDrawerItem(context, PROFILE, '/profile', Icons.person),
           Divider(),
-          _createDrawerItem(context, MY_FAVORS, '/myFavors', Icons.grading),
+          _createDrawerItem(context, MY_FAVORS, '/myFavors', Icons.list),
           _createDrawerItem(
-              context, INCOMPLETE_FAVORS, '/incompleteFavors', Icons.list),
+              context, INCOMPLETE_FAVORS, '/incompleteFavors', Icons.grading),
           _createDrawerItem(
               context, ACTIVE_CHATS, '/activeChats', Icons.chat_outlined),
           Divider(),

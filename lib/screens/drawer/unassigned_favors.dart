@@ -22,10 +22,10 @@ class _UnassignedFavorsState extends State<UnassignedFavors> {
     return StreamBuilder<QuerySnapshot>(
       stream: firestoreRef.snapshots(),
       builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          print(snapshot.error);
-          return Text('Error: ${snapshot.error}');
-        }
+        if (snapshot.hasError) return Text('Error: ${snapshot.error}');
+        if (!snapshot.hasData)
+          return Text('No favors to make, thanks for helping :)');
+
         switch (snapshot.connectionState) {
           case ConnectionState.waiting:
             return Text('Loading...');
