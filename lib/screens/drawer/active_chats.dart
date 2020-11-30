@@ -12,7 +12,7 @@ class ActiveChats extends StatelessWidget {
         title: Text(_title),
       ),
       body: Center(
-        child: Text(ACTIVE_CHATS),
+        child: Text('Nothing here, let\'s see in a future version :)'),
       ),
     );
   }

@@ -83,7 +83,8 @@ class _MyFavorsState extends State<MyFavors> {
                                     'Delete favor',
                                     'Sure yuo want to delete this favor?',
                                     true,
-                                    currentFavor[FAVOR_KEY]);
+                                    currentFavor[FAVOR_KEY],
+                                    null);
                               });
                           //TODO Show snackbar
                         }
@@ -96,7 +97,8 @@ class _MyFavorsState extends State<MyFavors> {
                                     'Mark as completed',
                                     'Has your peer completed this favor?',
                                     false,
-                                    currentFavor[FAVOR_KEY]);
+                                    currentFavor[FAVOR_KEY],
+                                    currentFavor[FAVOR_ASSIGNED_USER]);
                               });
                           //TODO Show snackbar
                         }
@@ -110,8 +112,8 @@ class _MyFavorsState extends State<MyFavors> {
         ));
   }
 
-  AlertDialog myFavorsDialog(
-      String title, String text, bool delete, String favorId) {
+  AlertDialog myFavorsDialog(String title, String text, bool delete,
+      String favorId, String assignedUser) {
     return AlertDialog(
       title: Text(title),
       content: Text(text),
@@ -129,7 +131,7 @@ class _MyFavorsState extends State<MyFavors> {
               DatabaseService().deleteFavor(favorId);
             } else {
               // Mark as completed
-              DatabaseService().markFavorAsCompleted(favorId);
+              DatabaseService().markFavorAsCompleted(favorId, assignedUser);
             }
             Navigator.of(context).pop();
           },

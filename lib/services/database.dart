@@ -28,11 +28,13 @@ class DatabaseService {
     String location,
   ) async {
     dynamic username;
+    dynamic newUserScore;
     await userCollection
         .doc(currentUser.uid)
         .get()
         .then<dynamic>((snapshot) async {
       username = snapshot.data()[USERNAME];
+      newUserScore = snapshot.data()[SCORE] - 2;
       var key = favorsCollection.doc().id;
       return await favorsCollection.doc(key).set({
         //FAVOR_ASSIGNED_USER: '',
@@ -45,6 +47,12 @@ class DatabaseService {
         FAVOR_STATUS: -1, // Unassigned
         FAVOR_USER: currentUser.uid,
         FAVOR_USERNAME: username,
+      }).then((value) {
+        // Decrease by 2 the SCORE of the user who asked for the favor
+        print(newUserScore);
+        userCollection.doc(currentUser.uid).update({
+          SCORE: newUserScore,
+        });
       });
     });
   }
@@ -64,15 +72,22 @@ class DatabaseService {
     });
   }
 
-  Future markFavorAsCompleted(String favorId) async {
-    favorsCollection.doc(favorId).update({
+  Future markFavorAsCompleted(String favorId, String userId) {
+    return favorsCollection.doc(favorId).update({
       FAVOR_STATUS: 2,
+    }).then((value) {
+      // Increase by 2 the SCORE of the user who made the favor
+      userCollection.doc(userId).get().then((snapshot) {
+        var userNewScore = snapshot.data()[SCORE] + 2;
+        userCollection.doc(userId).update({
+          SCORE: userNewScore,
+        });
+      });
     });
   }
 
-  Future deleteFavor(String favorId) async {
-    print(favorId);
-    await favorsCollection.doc(favorId).delete();
+  Future deleteFavor(String favorId) {
+    return favorsCollection.doc(favorId).delete();
   }
 
   Future<bool> canAskForFavors() async {
