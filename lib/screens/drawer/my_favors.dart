@@ -5,6 +5,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+const String COMPLETE = 'completed';
+const String DELETE = 'deleted';
+
 class MyFavors extends StatefulWidget {
   final String _title;
   MyFavors(this._title);
@@ -73,24 +76,27 @@ class _MyFavorsState extends State<MyFavors> {
                         Util()
                             .readFavorTimestamp(currentFavor[FAVOR_TIMESTAMP]),
                       ),
-                      onTap: () {
+                      onTap: () async {
+                        // showDialog returns a value, it's sent via pop()
                         if (currentFavor[FAVOR_STATUS] == UNASSIGNED) {
-                          // Can be deleted
-                          showDialog(
+                          var data = await showDialog(
                               context: context,
                               builder: (context) {
                                 return myFavorsDialog(
                                     'Delete favor',
-                                    'Sure yuo want to delete this favor?',
+                                    'Sure you want to delete this favor?',
                                     true,
                                     currentFavor[FAVOR_KEY],
                                     null);
                               });
-                          //TODO Show snackbar
+                          print(data);
+                          if (data == DELETE) {
+                            myFavorSnackbar(context,
+                                Icons.delete_forever_rounded, 'Favor deleted');
+                          }
                         }
                         if (currentFavor[FAVOR_STATUS] == ASSIGNED) {
-                          // Can be mark as completed
-                          showDialog(
+                          var data = await showDialog(
                               context: context,
                               builder: (context) {
                                 return myFavorsDialog(
@@ -100,7 +106,12 @@ class _MyFavorsState extends State<MyFavors> {
                                     currentFavor[FAVOR_KEY],
                                     currentFavor[FAVOR_ASSIGNED_USER]);
                               });
-                          //TODO Show snackbar
+                          if (data == COMPLETE) {
+                            myFavorSnackbar(
+                                context,
+                                Icons.sentiment_satisfied_alt,
+                                'Favor marked as completed');
+                          }
                         }
                       },
                     );
@@ -110,6 +121,21 @@ class _MyFavorsState extends State<MyFavors> {
             }
           },
         ));
+  }
+
+  ScaffoldFeatureController<SnackBar, SnackBarClosedReason> myFavorSnackbar(
+      BuildContext context, IconData icon, String text) {
+    return Scaffold.of(context).showSnackBar(SnackBar(
+        content: Row(
+          children: [
+            Icon(icon),
+            SizedBox(width: 20.0),
+            Expanded(
+              child: Text(text),
+            ),
+          ],
+        ),
+        duration: Duration(seconds: 2)));
   }
 
   AlertDialog myFavorsDialog(String title, String text, bool delete,
@@ -129,11 +155,12 @@ class _MyFavorsState extends State<MyFavors> {
             if (delete) {
               // Delete favor
               DatabaseService().deleteFavor(favorId);
+              Navigator.of(context).pop(DELETE);
             } else {
               // Mark as completed
               DatabaseService().markFavorAsCompleted(favorId, assignedUser);
+              Navigator.of(context).pop(COMPLETE);
             }
-            Navigator.of(context).pop();
           },
           child: Text('YES'),
         ),
