@@ -25,6 +25,11 @@ const String FAVOR_STATUS = 'status';
 const String FAVOR_USER = 'user';
 const String FAVOR_USERNAME = 'username';
 
+const String STATUS = 'STATUS:';
+const String ASSIGNED = 'ASSIGNED';
+const String UNASSIGNED = 'UNASSIGNED';
+const String COMPLETED = 'COMPLETED';
+
 /* [ADD FAVOR] STRINGS */
 const String ASK_FOR_A_FAVOR = 'Ask for a favor';
 const String REQUEST_FAVOR = 'REQUEST FAVOR';

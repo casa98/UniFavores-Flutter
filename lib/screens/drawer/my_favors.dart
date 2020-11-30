@@ -1,6 +1,6 @@
+import 'package:auth/services/database.dart';
 import 'package:auth/shared/constants.dart';
 import 'package:auth/shared/util.dart';
-import 'package:auth/widgets/drawer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -47,18 +47,60 @@ class _MyFavorsState extends State<MyFavors> {
                   separatorBuilder: (context, index) => Divider(height: 0.0),
                   itemBuilder: (context, index) {
                     var currentFavor = item[index];
+                    if (currentFavor[FAVOR_STATUS] == -1)
+                      currentFavor[FAVOR_STATUS] = UNASSIGNED;
+                    else if (currentFavor[FAVOR_STATUS] == 1)
+                      currentFavor[FAVOR_STATUS] = ASSIGNED;
+                    else
+                      currentFavor[FAVOR_STATUS] = COMPLETED;
+
                     return ListTile(
                       title: Text(
                         currentFavor[FAVOR_TITLE],
                         overflow: TextOverflow.ellipsis,
                       ),
-                      subtitle: Text(currentFavor[FAVOR_DESCRIPTION],
-                          overflow: TextOverflow.ellipsis),
+                      subtitle: Row(
+                        children: [
+                          Text(STATUS),
+                          SizedBox(width: 10.0),
+                          Text(
+                            currentFavor[FAVOR_STATUS],
+                            style: TextStyle(color: Colors.black),
+                          ),
+                        ],
+                      ),
                       trailing: Text(
                         Util()
                             .readFavorTimestamp(currentFavor[FAVOR_TIMESTAMP]),
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        if (currentFavor[FAVOR_STATUS] == UNASSIGNED) {
+                          // Can be deleted
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return myFavorsDialog(
+                                    'Delete favor',
+                                    'Sure yuo want to delete this favor?',
+                                    true,
+                                    currentFavor[FAVOR_KEY]);
+                              });
+                          //TODO Show snackbar
+                        }
+                        if (currentFavor[FAVOR_STATUS] == ASSIGNED) {
+                          // Can be mark as completed
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return myFavorsDialog(
+                                    'Mark as completed',
+                                    'Has your peer completed this favor?',
+                                    false,
+                                    currentFavor[FAVOR_KEY]);
+                              });
+                          //TODO Show snackbar
+                        }
+                      },
                     );
                   },
                 );
@@ -66,5 +108,34 @@ class _MyFavorsState extends State<MyFavors> {
             }
           },
         ));
+  }
+
+  AlertDialog myFavorsDialog(
+      String title, String text, bool delete, String favorId) {
+    return AlertDialog(
+      title: Text(title),
+      content: Text(text),
+      actions: [
+        FlatButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: Text('OH NO'),
+        ),
+        FlatButton(
+          onPressed: () {
+            if (delete) {
+              // Delete favor
+              DatabaseService().deleteFavor(favorId);
+            } else {
+              // Mark as completed
+              DatabaseService().markFavorAsCompleted(favorId);
+            }
+            Navigator.of(context).pop();
+          },
+          child: Text('YES'),
+        ),
+      ],
+    );
   }
 }

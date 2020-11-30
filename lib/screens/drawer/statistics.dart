@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:auth/shared/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -46,6 +48,11 @@ class _StatisticsState extends State<Statistics> {
                     var userItem = item[index];
                     var score = userItem[SCORE].toString() + ' points';
                     return ListTile(
+                      leading: CircleAvatar(
+                        radius: 26,
+                        backgroundColor: Colors
+                            .primaries[Random().nextInt(Colors.accents.length)],
+                      ),
                       title: Text(
                         userItem[USERNAME],
                         overflow: TextOverflow.ellipsis,

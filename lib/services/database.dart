@@ -64,6 +64,17 @@ class DatabaseService {
     });
   }
 
+  Future markFavorAsCompleted(String favorId) async {
+    favorsCollection.doc(favorId).update({
+      FAVOR_STATUS: 2,
+    });
+  }
+
+  Future deleteFavor(String favorId) async {
+    print(favorId);
+    await favorsCollection.doc(favorId).delete();
+  }
+
   Future<bool> canAskForFavors() async {
     var snapshot = await userCollection.doc(currentUser.uid).get();
     int userScore = snapshot.data()[SCORE];
