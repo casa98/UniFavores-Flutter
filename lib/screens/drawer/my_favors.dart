@@ -148,7 +148,7 @@ class _MyFavorsState extends State<MyFavors> {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: Text('OH NO'),
+          child: Text('NO'),
         ),
         FlatButton(
           onPressed: () {
