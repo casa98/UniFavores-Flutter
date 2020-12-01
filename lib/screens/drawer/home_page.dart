@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage> {
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.waiting:
-              return Text('Loading...');
+              return Text('');
             default:
               var userScore = snapshot.data[SCORE];
               return userScore >= 2

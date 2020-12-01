@@ -23,8 +23,6 @@ class _UnassignedFavorsState extends State<UnassignedFavors> {
       stream: firestoreRef.snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasError) return Text('Error: ${snapshot.error}');
-        if (!snapshot.hasData)
-          return Text('No favors to make, thanks for helping :)');
 
         switch (snapshot.connectionState) {
           case ConnectionState.waiting:
@@ -35,6 +33,7 @@ class _UnassignedFavorsState extends State<UnassignedFavors> {
               if (element.data()[FAVOR_USER].toString() != currentUser.uid)
                 item.add(element.data());
             });
+            if (item.length == 0) return Text('No favors to, yet');
             return ListView.separated(
               itemCount: item.length,
               separatorBuilder: (context, index) => Divider(height: 0.0),

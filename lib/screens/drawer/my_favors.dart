@@ -34,8 +34,7 @@ class _MyFavorsState extends State<MyFavors> {
             if (snapshot.hasError) {
               return Text('Error: ${snapshot.error}');
             }
-            if (!snapshot.hasData)
-              return Text('You haven\'t requested any favor yet');
+
             switch (snapshot.connectionState) {
               case ConnectionState.waiting:
                 return Text('Loading...');
@@ -44,7 +43,9 @@ class _MyFavorsState extends State<MyFavors> {
                 snapshot.data.docs.forEach((element) {
                   item.add(element.data());
                 });
-                //
+                if (item.length == 0)
+                  return Text(
+                      'Favors you request, will appear here. Nothing for now');
                 return ListView.separated(
                   itemCount: item.length,
                   separatorBuilder: (context, index) => Divider(height: 0.0),
