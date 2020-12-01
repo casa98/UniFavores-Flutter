@@ -1,4 +1,8 @@
+import 'dart:ui';
+
 import 'package:auth/shared/constants.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -35,19 +39,47 @@ class AppDrawer extends StatelessWidget {
 }
 
 Widget _createHeader() {
-  return UserAccountsDrawerHeader(
-    accountName: Text("Armando Esteban Quito"),
-    accountEmail: Text("armandoestebanquito@m.com"),
-    currentAccountPicture: CircleAvatar(
-      backgroundColor: defaultTargetPlatform == TargetPlatform.iOS
-          ? Colors.blue
-          : Colors.white,
-      child: Text(
-        "A",
-        style: TextStyle(fontSize: 40.0),
-      ),
-    ),
+  var firestoreRef = FirebaseFirestore.instance
+      .collection(USER)
+      .doc(FirebaseAuth.instance.currentUser.uid);
+  return StreamBuilder(
+    stream: firestoreRef.snapshots(),
+    builder: (context, snapshot) {
+      switch (snapshot.connectionState) {
+        case ConnectionState.waiting:
+          return Text('Loading...');
+        default:
+          var userDocument = snapshot.data;
+          return UserAccountsDrawerHeader(
+            accountName: Text(userDocument[USERNAME]),
+            accountEmail: Text(userDocument[EMAIL]),
+            currentAccountPicture: CircleAvatar(
+                backgroundColor: defaultTargetPlatform == TargetPlatform.iOS
+                    ? Colors.blue
+                    : Colors.white,
+                child: userDocument[IMAGE] == ''
+                    ? Text(
+                        lettersForHeader(userDocument[USERNAME]),
+                        style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      )
+                    : CircleAvatar(
+                        maxRadius: 40,
+                        backgroundImage: NetworkImage(userDocument[IMAGE]),
+                      )),
+          );
+      }
+    },
   );
+}
+
+// If name == 'Maria Fernanda Garizabalo', returns 'M G'
+String lettersForHeader(String name) {
+  List<String> words = name.split(' ');
+  if (words.length > 1) return words[0][0] + words[words.length - 1][0];
+  return words[0][0];
 }
 
 Widget _createDrawerItem(
